@@ -26,7 +26,7 @@ public class AvisListeFrontController implements Initializable {
     private List<Avis> avisList;
 
     AvisService as = new AvisService();
-
+    int hoteID;
 
     public void refresh() {
 
@@ -75,12 +75,20 @@ public class AvisListeFrontController implements Initializable {
         cardLayout.getChildren().add(gridPane);
     }
 
+    void setHoteId(int id){
+        hoteID = id;
+        refresh(); // Call refresh after setting hoteID
 
+        System.out.println(hoteID+" HEDHA HOWA");
+    }
 
     private List<Avis> allAvis() {
+        System.out.println(hoteID+"555555555555555555555");
         List<Avis> AvisList = new ArrayList<>();
         try {
-            AvisList = as.read();
+            System.out.println(hoteID + "333333333333333333333333333333333333");
+            AvisList = as.readWhereHoteID(hoteID);
+            System.out.println(avisList);
         } catch (SQLException ex) {
             ex.printStackTrace();
             // Handle exception

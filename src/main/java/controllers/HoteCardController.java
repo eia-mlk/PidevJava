@@ -20,6 +20,23 @@ public class HoteCardController {
     Hote hote;
     @FXML
     private Label nomHote;
+    @FXML
+    void LeaveReview(ActionEvent event) {
+        try {
+            Stage stage = (Stage) nomHote.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/leaveReview.fxml"));
+            Parent root = loader.load();
+
+            LeaveReviewController controller = loader.getController();
+            controller.initData(hote);
+
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void GoToAvis(ActionEvent event) {
@@ -29,9 +46,7 @@ public class HoteCardController {
             Parent root = loader.load();
 
             AvisListeFrontController controller = loader.getController();
-
-
-         //  controller.setVoyage(voyage);
+           controller.setHoteId(hote.getId());
 
 
             stage.setScene(new Scene(root));

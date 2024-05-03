@@ -18,7 +18,14 @@ public class AvisService implements IService<Avis> {
     }
     @Override
     public void add(Avis avis) throws SQLException {
-
+        String req = "INSERT INTO avis(hote_id  , user_id , commentaire, note, datepublication) VALUES(?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, avis.getHote_id());
+        ps.setInt(2, avis.getHote_id());
+        ps.setString(3, avis.getCommentaire());
+        ps.setInt(4, avis.getNote());
+        ps.setDate(5, avis.getDatepublication());
+        ps.executeUpdate();
     }
 
     @Override
@@ -80,5 +87,27 @@ public class AvisService implements IService<Avis> {
             return rs.getString("nom");
         }
         return null;
+    }
+
+
+    public List<Avis> readWhereHoteID(int hote_id) throws SQLException {
+        List<Avis> AvisList = new ArrayList<>();
+        String req = "SELECT * FROM avis WHERE hote_id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, hote_id);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Avis avis = new Avis(
+                    rs.getInt("id"),
+                    rs.getInt("hote_id"),
+                    rs.getInt("user_id"),
+                    rs.getInt("note"),
+                    rs.getDate("datepublication"),
+                    rs.getString("commentaire")
+            );
+            AvisList.add(avis);
+        }
+        System.out.println(AvisList);
+        return AvisList;
     }
 }
