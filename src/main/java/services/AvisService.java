@@ -70,4 +70,15 @@ public class AvisService implements IService<Avis> {
         System.out.println(HoteList);
         return HoteList;
     }
+
+    public String GetUserNameByID(int id) throws SQLException {
+        String req = "SELECT nom FROM user WHERE id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getString("nom");
+        }
+        return null;
+    }
 }
