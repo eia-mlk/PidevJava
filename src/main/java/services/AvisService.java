@@ -1,6 +1,7 @@
 package services;
 
 import entities.Avis;
+import entities.Hote;
 import interfaces.IService;
 import javafx.fxml.Initializable;
 import utils.MyDatabase;
@@ -52,5 +53,21 @@ public class AvisService implements IService<Avis> {
         }
         System.out.println(AvisList);
         return AvisList;
+    }
+
+    public List<Hote> readHote() throws SQLException {
+        List<Hote> HoteList = new ArrayList<>();
+        String req = "SELECT * FROM hote";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            Hote Hotes = new Hote(
+                    rs.getInt("id"),
+                    rs.getString("nom")
+            );
+            HoteList.add(Hotes);
+        }
+        System.out.println(HoteList);
+        return HoteList;
     }
 }

@@ -20,7 +20,7 @@ public class FXMain extends Application {
 
             Connection cnx;
             cnx = MyDatabase.getInstance().getConnection();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/createReclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/listHotes.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setTitle("sami");

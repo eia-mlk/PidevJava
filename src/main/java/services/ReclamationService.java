@@ -38,7 +38,18 @@ public class ReclamationService implements IService<Reclamation> {
 
     @Override
     public void update(Reclamation reclamation) throws SQLException {
-
+        String req = "UPDATE reclamation SET user_id = ?, voyage_id = ?, titre = ?, priorite = ?, createddate = ?, image = ?, status = ?, description = ? WHERE id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, reclamation.getUser_id());
+        ps.setInt(2, reclamation.getVoyage_id());
+        ps.setString(3, reclamation.getTitre());
+        ps.setString(4, reclamation.getPriorite());
+        ps.setDate(5, reclamation.getCreateddate());
+        ps.setString(6, reclamation.getImage());
+        ps.setString(7, reclamation.getStatus());
+        ps.setString(8, reclamation.getDescription());
+        ps.setInt(9, reclamation.getId());
+        ps.executeUpdate();
     }
 
     @Override
